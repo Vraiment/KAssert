@@ -1,0 +1,39 @@
+buildscript {
+    ext.kotlin_version = '1.2.31'
+    ext.junit_platform_version = '1.1.0'
+    ext.junit_engine_version = '5.1.0'
+
+    repositories {
+        mavenCentral()
+    }
+
+    dependencies {
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+        classpath "org.junit.platform:junit-platform-gradle-plugin:$junit_platform_version"
+    }
+}
+
+apply plugin: 'kotlin'
+apply plugin: 'org.junit.platform.gradle.plugin'
+
+repositories {
+    mavenCentral()
+}
+
+sourceSets {
+    main.kotlin.srcDirs = ["src"]
+    test.kotlin.srcDirs = ["tst"]
+}
+
+dependencies {
+    compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+    compile "org.jetbrains.kotlin:kotlin-reflect:$kotlin_version"
+    testCompile "org.junit.jupiter:junit-jupiter-api:$junit_engine_version"
+    testRuntime "org.junit.jupiter:junit-jupiter-engine:$junit_engine_version"
+}
+
+tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).all {
+    kotlinOptions {
+        jvmTarget = "1.8"
+    }
+}
